@@ -27,9 +27,9 @@ async function ConexionCategorias() {
 }
 
 
-async function FiltroConexion(categoriaElegida) {
-  const productosFiltrados = await Conexion(categoriaElegida);
-  document.getElementById("la-lista").innerHTML = "";
-  const listaFiltro = GenerarLista(productosFiltrados);
-  document.getElementById("la-lista").innerHTML = listaFiltro;
+async function FiltroConexion(idCategoria) {
+  const res = await fetch(`https://api.escuelajs.co/api/v1/categories/${idCategoria}/products`);
+  const data = await res.json();
+  document.getElementById("la-lista").innerHTML = GenerarLista(data);
 }
+

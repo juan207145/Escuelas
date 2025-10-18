@@ -89,7 +89,7 @@ function favoritos() {
       <div class="c-lista-producto" onclick="Detalle(${prod.id})">
         <img src="${prod.image}" alt="${prod.name}" width="100" height="100">
         <p><strong>${prod.name}</strong></p>
-        <p>💲${prod.price}</p>
+        <p>Precio: ${prod.price}</p>
       </div>
     `;
   });
