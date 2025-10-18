@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Tienda Escuelas</title>
+</head>
+<body>
+    <nav>
+        <button onclick="home()">Home</button>
+        <button onclick="productos()">Productos</button>
+        <button onclick="categorias()">Categorias</button>
+        <button onclick="buscar()">Buscar</button>
+        <button onclick="favoritos()">Favoritos</button>
+        <button onclick="info()">Informacion</button>
+    </nav>
+
+    <!-- Contenedor principal donde se muestran las vistas -->
+    <div id="root"></div>
+
+    <script src="JS/conexion.js"></script>
+    <script src="JS/home.js"></script>
+    <script src="JS/productos.js"></script>
+    <script src="JS/favoritos.js"></script>
+    <script src="JS/informativa.js"></script>
+    <script src="JS/detalle.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", General);
+    </script>
+</body>
+
+
+</body>
+</html>
