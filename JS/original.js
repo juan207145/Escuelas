@@ -1,50 +1,41 @@
-async function filtrarPorPrecio() {
+function filtrarPorPrecio() {
   const root = document.getElementById("root");
-  root.innerHTML = "<h2>Filtrar productos por precio</h2>";
+  root.innerHTML = "<h2>Filtrar Productos por Precio</h2>";
 
-  // Si los productos no están cargados, los trae de la API
-  if (productos.length === 0) {
-    productos = await Conexion("All");
-  }
-
-
-  const inputMin = document.createElement("input");
-  inputMin.type = "number";
-  inputMin.placeholder = "Precio mínimo";
-  inputMin.id = "precio-min";
-
-  const inputMax = document.createElement("input");
-  inputMax.type = "number";
-  inputMax.placeholder = "Precio máximo";
-  inputMax.id = "precio-max";
+  // Input para establecer el precio máximo
+  const input = document.createElement("input");
+  input.type = "number";
+  input.placeholder = "Ingrese precio máximo";
+  input.classList.add("c-buscador");
 
   // Botón para aplicar el filtro
-  const btnFiltrar = document.createElement("button");
-  btnFiltrar.textContent = "Aplicar filtro";
+  const boton = document.createElement("button");
+  boton.textContent = "Aplicar filtro";
 
-  btnFiltrar.addEventListener("click", () => {
-    const min = parseFloat(inputMin.value) || 0;
-    const max = parseFloat(inputMax.value) || Infinity;
+  // Contenedor para los resultados
+  const contenedor = document.createElement("section");
+  contenedor.classList.add("c-lista");
+  contenedor.id = "lista-precio";
 
-    const filtrados = productos.filter(p => p.price >= min && p.price <= max);
-
-    if (filtrados.length === 0) {
-      root.innerHTML += "<p>No se encontraron productos en ese rango de precios.</p>";
+  // Al presionar el botón, filtramos
+  boton.addEventListener("click", () => {
+    const precioMax = parseFloat(input.value);
+    if (isNaN(precioMax)) {
+      alert("Por favor ingrese un número válido.");
       return;
     }
 
-    const listaHTML = GenerarLista(filtrados);
-    document.getElementById("la-lista")?.remove(); // eliminar lista previa si existe
+    appData.filtroPrecio = precioMax; // guardamos el valor en el objeto compartido
 
-    const contenedorLista = document.createElement("section");
-    contenedorLista.classList.add("c-lista");
-    contenedorLista.id = "la-lista";
-    contenedorLista.innerHTML = listaHTML;
-    root.appendChild(contenedorLista);
+    const filtrados = appData.productos.filter(p => p.price <= precioMax);
+    contenedor.innerHTML = GenerarLista(filtrados);
+
+    if (filtrados.length === 0) {
+      contenedor.innerHTML = "<p>No hay productos dentro de ese rango de precio.</p>";
+    }
   });
 
-  // Agregar los elementos al DOM
-  root.appendChild(inputMin);
-  root.appendChild(inputMax);
-  root.appendChild(btnFiltrar);
+  root.appendChild(input);
+  root.appendChild(boton);
+  root.appendChild(contenedor);
 }

@@ -2,37 +2,25 @@ var esFavorito = false;
 
 
 function toggleFavorito(paramid, paramname, paramimagen, paramprecio) {
-  let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
-  let existe = false;
+  appData.favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
- 
-  for (let i = 0; i < favoritos.length; i++) {
-    if (favoritos[i].id === paramid) {
-      existe = true;
-      break;
-    }
-  }
+  const existe = appData.favoritos.some(prod => prod.id === paramid);
 
   if (existe) {
-    favoritos = favoritos.filter(prod => prod.id !== paramid);
-    esFavorito = false;
+    appData.favoritos = appData.favoritos.filter(prod => prod.id !== paramid);
   } else {
-    // Agregar a favoritos
-    favoritos.push({
+    appData.favoritos.push({
       id: paramid,
       name: paramname,
       image: paramimagen,
       price: paramprecio
     });
-    esFavorito = true;
   }
 
-
-  localStorage.setItem("favoritos", JSON.stringify(favoritos));
-
+  localStorage.setItem("favoritos", JSON.stringify(appData.favoritos));
 
   const boton = document.querySelector(`#corazon-${paramid}`);
-  if (boton) boton.textContent = esFavorito ? "❤️" : "🤍";
+  if (boton) boton.textContent = existe ? "🤍" : "❤️";
 }
 
 

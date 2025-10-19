@@ -14,21 +14,14 @@ function GenerarLista(arrayProductos) {
 }
 
 function buscadorfuncion(texto) {
-    if (texto.length >= 3) {
-        const filtrados = [];
-        for (let i = 0; i < productos.length; i++) {
-        const nombre = productos[i].title.toLowerCase();
-        if (nombre.includes(texto.toLowerCase())) {
-            filtrados.push(productos[i]);
-        }
-        }
-        const listaProductos = GenerarLista(filtrados);
-        document.getElementById("la-lista").innerHTML = listaProductos;
-    } else if (texto.length === 0) {
-  
-        const listaProductos = GenerarLista(productos);
-        document.getElementById("la-lista").innerHTML = listaProductos;
-    }
+  if (texto.length >= 3) {
+    const filtrados = appData.productos.filter(p => 
+      p.title.toLowerCase().includes(texto.toLowerCase())
+    );
+    document.getElementById("la-lista").innerHTML = GenerarLista(filtrados);
+  } else if (texto.length === 0) {
+    document.getElementById("la-lista").innerHTML = GenerarLista(appData.productos);
+  }
 }
 
 
