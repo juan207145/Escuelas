@@ -49,19 +49,31 @@ function home() {
   const filtro = document.createElement("div");
 
     ConexionCategorias().then((categorias) => {
-    for (let i = 0; i < categorias.length; i++) {
-        if (categorias[i].name === "Test FROM VB.net") continue; 
+      for (let i = 0; i < categorias.length; i++) {
+        const nombre = categorias[i].name?.trim();
+
+        // 🚫 Filtrar categorías no válidas
+        if (
+          !nombre || 
+          nombre.toLowerCase().includes("test") || 
+          nombre.toLowerCase() === "string" ||
+          nombre.toLowerCase().includes("category")
+        ) {
+          continue;
+        }
+
         const btn = document.createElement("button");
-        btn.textContent = categorias[i].name;
+        btn.textContent = nombre;
         const idCategoria = categorias[i].id;
 
         btn.addEventListener("click", () => {
-        FiltroConexion(idCategoria);
+          FiltroConexion(idCategoria);
         });
 
         filtro.appendChild(btn);
-    }
+      }
     });
+
 
 
 
