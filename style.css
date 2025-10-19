@@ -18,3 +18,11 @@
   border-radius: 10px;
   margin-bottom: 8px;
 }
+.c-lista {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
